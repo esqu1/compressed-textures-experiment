@@ -11,20 +11,77 @@
     }
     .canvas {
       border: 1px solid black;
+      width: 400px;
+      height: 200px;
     }
   </style>
 </head>
 <body>
+  <h1>Comparison of ASTC encoding quality</h1>
+  All of these are encoded with 12x12 block size in sRGB.
+  <br><br>
+
+  Statistics: <br>
+  On-disk size of original 1140 x 580 PNG image: 1.56 MB <br>
+  On-disk size of original 1920 x 1200 PNG image: 3.37 MB <br>
+  GPU memory size of original 1140 x 580 PNG image: 2.64 MB <br>
+  GPU memory size of original 1920 x 1200 PNG image: 9.22 MB <br>
+  GPU memory size of compressed 1140 x 580 ASTC_12x12 image: <span id="stats-low-res-size"></span> <br>
+  GPU memory size of compressed 1920 x 1200 ASTC_12x12 image: <span id="stats-high-res-size"></span> <br>
+  Compressed texture upload time for 1140 x 580 image: <span id="stats-low-res-upload"></span><br>
+  Compressed texture upload time for 1920 x 1200 image: <span id="stats-high-res-upload"></span>
+
+  <hr>
   <div class="canvas-grid">
-    <canvas class="canvas" id="canvas1-1"></canvas>
-    <canvas class="canvas" id="canvas1-2"></canvas>
-    <canvas class="canvas" id="canvas2-1"></canvas>
-    <canvas class="canvas" id="canvas2-2"></canvas>
-    <canvas class="canvas" id="canvas3-1"></canvas>
-    <canvas class="canvas" id="canvas3-2"></canvas>
-    <canvas class="canvas" id="canvas4-1"></canvas>
-    <canvas class="canvas" id="canvas4-2"></canvas>
-  </div>
+    <div>
+      <center>
+        <canvas width=800 height=400 class="canvas" id="canvas1-1"></canvas><br>
+        fastest (quality = 0)
+      </center>
+    </div>
+    <div>
+      <center>
+        <canvas width=800 height=400 class="canvas" id="canvas1-2"></canvas><br>
+        fastest (quality = 0)
+      </center>
+    </div>
+    <div>
+      <center>
+        <canvas width=800 height=400 class="canvas" id="canvas2-1"></canvas><br>
+        fast (quality = 10)
+      </center>
+    </div>
+    <div>
+      <center>
+        <canvas width=800 height=400 class="canvas" id="canvas2-2"></canvas><br>
+        fast (quality = 10)
+      </center>
+    </div>
+    <div>
+      <center>
+        <canvas width=800 height=400 class="canvas" id="canvas3-1"></canvas><br>
+        medium (quality = 60)
+      </center>
+    </div>
+    <div>
+      <center>
+        <canvas width=800 height=400 class="canvas" id="canvas3-2"></canvas><br>
+        medium (quality = 60)
+      </center>
+    </div>
+    <div>
+      <center>
+        <canvas width=800 height=400 class="canvas" id="canvas4-1"></canvas><br>
+        original
+      </center>
+    </div>
+    <div>
+      <center>
+        <canvas width=800 height=400 class="canvas" id="canvas4-2"></canvas><br>
+        original
+      </center>
+    </div>
+
   <script src="./index.js"></script>
 </body>
 </html>

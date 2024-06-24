@@ -111,12 +111,17 @@ function drawTheRest(gl: WebGLRenderingContext) {
   gl.drawArrays(gl.TRIANGLES, 0, 6);
 }
 
+interface CompressionStats {
+  uploadTime: number;
+  compressedSize?: number;
+}
+
 async function loadCapy(
   canvasId: string,
   textureUrl: string,
   textureWidth: number,
   textureHeight: number
-) {
+): Promise<CompressionStats> {
   // Create a canvas element
   const canvas = document.getElementById(canvasId)! as HTMLCanvasElement;
 
@@ -128,7 +133,7 @@ async function loadCapy(
 
   if (!astcExt) {
     alert("Your browser does not support ASTC texture compression.");
-    return;
+    return { uploadTime: 0.0 };
   }
 
   // Create a texture object
@@ -157,6 +162,7 @@ async function loadCapy(
       );
       drawTheRest(gl);
     };
+    return { uploadTime: 0.0 };
   } else if (textureUrl.endsWith(".ktx2")) {
     // Set the compressed texture data
     const fetchedImage = await fetch(textureUrl);
@@ -167,61 +173,87 @@ async function loadCapy(
     gl.compressedTexImage2D(
       gl.TEXTURE_2D,
       0,
-      astcExt.COMPRESSED_RGBA_ASTC_4x4_KHR,
+      astcExt.COMPRESSED_RGBA_ASTC_12x12_KHR,
       textureWidth,
       textureHeight,
       0,
       new DataView(compressedTextureData, 0x100)
     );
     const endTimestamp = performance.now();
-    console.log(
-      `Compressed texture upload time for ${textureWidth} x ${textureHeight} image:`,
-      endTimestamp - startTimestamp,
-      "ms"
-    );
     drawTheRest(gl);
+
+    return {
+      uploadTime: endTimestamp - startTimestamp,
+      compressedSize: compressedTextureData.byteLength - 0x100,
+    };
   }
+
+  return { uploadTime: 0.0 };
 }
 
-function main() {
-  loadCapy(
+async function main() {
+  const lowResStats1 = await loadCapy(
     "canvas1-1",
     "./generated-assets/capybara-quality-1.ktx2",
     1140,
     580
   );
-  loadCapy(
+  const lowResStats2 = await loadCapy(
     "canvas2-1",
     "./generated-assets/capybara-quality-2.ktx2",
     1140,
     580
   );
-  loadCapy(
+  const lowResStats3 = await loadCapy(
     "canvas3-1",
     "./generated-assets/capybara-quality-3.ktx2",
     1140,
     580
   );
-  loadCapy("canvas4-1", "./capybara.png", 1140, 580);
-  loadCapy(
+  await loadCapy("canvas4-1", "./capybara.png", 1140, 580);
+  const highResStats1 = await loadCapy(
     "canvas1-2",
     "./generated-assets/capybara-4k-quality-1.ktx2",
     1920,
     1200
   );
-  loadCapy(
+  const highResStats2 = await loadCapy(
     "canvas2-2",
     "./generated-assets/capybara-4k-quality-2.ktx2",
     1920,
     1200
   );
-  loadCapy(
+  const highResStats3 = await loadCapy(
     "canvas3-2",
     "./generated-assets/capybara-4k-quality-3.ktx2",
     1920,
     1200
   );
-  loadCapy("canvas4-2", "./capybara-4k.png", 1920, 1200);
+  await loadCapy("canvas4-2", "./capybara-4k.png", 1920, 1200);
+
+  const lowResUploadAvg =
+    (lowResStats1.uploadTime +
+      lowResStats2.uploadTime +
+      lowResStats3.uploadTime) /
+    3;
+  const highResUploadAvg =
+    (highResStats1.uploadTime +
+      highResStats2.uploadTime +
+      highResStats3.uploadTime) /
+    3;
+
+  document.getElementById(
+    "stats-low-res-upload"
+  )!.innerHTML = `${lowResUploadAvg.toFixed(2)} ms`;
+  document.getElementById(
+    "stats-high-res-upload"
+  )!.innerHTML = `${highResUploadAvg.toFixed(2)} ms`;
+  document.getElementById(
+    "stats-low-res-size"
+  )!.innerHTML = `${lowResStats1.compressedSize} bytes`;
+  document.getElementById(
+    "stats-high-res-size"
+  )!.innerHTML = `${highResStats1.compressedSize} bytes`;
 }
 
 (async () => {
