@@ -173,7 +173,9 @@ async function loadCapy(
     gl.compressedTexImage2D(
       gl.TEXTURE_2D,
       0,
-      astcExt.COMPRESSED_RGBA_ASTC_12x12_KHR,
+      canvasId.endsWith("small-block")
+        ? astcExt.COMPRESSED_RGBA_ASTC_4x4_KHR
+        : astcExt.COMPRESSED_RGBA_ASTC_12x12_KHR,
       textureWidth,
       textureHeight,
       0,
@@ -192,38 +194,38 @@ async function loadCapy(
 }
 
 async function main() {
-  const lowResStats1 = await loadCapy(
+  const lowRes12x12Stats1 = await loadCapy(
     "canvas1-1",
     "./generated-assets/capybara-quality-1.ktx2",
     1140,
     580
   );
-  const lowResStats2 = await loadCapy(
+  const lowRes12x12Stats2 = await loadCapy(
     "canvas2-1",
     "./generated-assets/capybara-quality-2.ktx2",
     1140,
     580
   );
-  const lowResStats3 = await loadCapy(
+  const lowRes12x12Stats3 = await loadCapy(
     "canvas3-1",
     "./generated-assets/capybara-quality-3.ktx2",
     1140,
     580
   );
   await loadCapy("canvas4-1", "./capybara.png", 1140, 580);
-  const highResStats1 = await loadCapy(
+  const highRes12x12Stats1 = await loadCapy(
     "canvas1-2",
     "./generated-assets/capybara-4k-quality-1.ktx2",
     1920,
     1200
   );
-  const highResStats2 = await loadCapy(
+  const highRes12x12Stats2 = await loadCapy(
     "canvas2-2",
     "./generated-assets/capybara-4k-quality-2.ktx2",
     1920,
     1200
   );
-  const highResStats3 = await loadCapy(
+  const highRes12x12Stats3 = await loadCapy(
     "canvas3-2",
     "./generated-assets/capybara-4k-quality-3.ktx2",
     1920,
@@ -231,29 +233,90 @@ async function main() {
   );
   await loadCapy("canvas4-2", "./capybara-4k.png", 1920, 1200);
 
-  const lowResUploadAvg =
-    (lowResStats1.uploadTime +
-      lowResStats2.uploadTime +
-      lowResStats3.uploadTime) /
+  const lowRes12x12UploadAvg =
+    (lowRes12x12Stats1.uploadTime +
+      lowRes12x12Stats2.uploadTime +
+      lowRes12x12Stats3.uploadTime) /
     3;
-  const highResUploadAvg =
-    (highResStats1.uploadTime +
-      highResStats2.uploadTime +
-      highResStats3.uploadTime) /
+  const highRes12x12UploadAvg =
+    (highRes12x12Stats1.uploadTime +
+      highRes12x12Stats2.uploadTime +
+      highRes12x12Stats3.uploadTime) /
     3;
 
   document.getElementById(
     "stats-low-res-upload"
-  )!.innerHTML = `${lowResUploadAvg.toFixed(2)} ms`;
+  )!.innerHTML = `${lowRes12x12UploadAvg.toFixed(2)} ms`;
   document.getElementById(
     "stats-high-res-upload"
-  )!.innerHTML = `${highResUploadAvg.toFixed(2)} ms`;
+  )!.innerHTML = `${highRes12x12UploadAvg.toFixed(2)} ms`;
   document.getElementById(
     "stats-low-res-size"
-  )!.innerHTML = `${lowResStats1.compressedSize} bytes`;
+  )!.innerHTML = `${lowRes12x12Stats1.compressedSize} bytes`;
   document.getElementById(
     "stats-high-res-size"
-  )!.innerHTML = `${highResStats1.compressedSize} bytes`;
+  )!.innerHTML = `${highRes12x12Stats1.compressedSize} bytes`;
+
+  const lowRes4x4Stats1 = await loadCapy(
+    "canvas1-1-small-block",
+    "./generated-assets/capybara-small-block-quality-1.ktx2",
+    1140,
+    580
+  );
+  const lowRes4x4Stats2 = await loadCapy(
+    "canvas2-1-small-block",
+    "./generated-assets/capybara-small-block-quality-2.ktx2",
+    1140,
+    580
+  );
+  const lowRes4x4Stats3 = await loadCapy(
+    "canvas3-1-small-block",
+    "./generated-assets/capybara-small-block-quality-3.ktx2",
+    1140,
+    580
+  );
+  const highRes4x4Stats1 = await loadCapy(
+    "canvas1-2-small-block",
+    "./generated-assets/capybara-4k-small-block-quality-1.ktx2",
+    1920,
+    1200
+  );
+  const highRes4x4Stats2 = await loadCapy(
+    "canvas2-2-small-block",
+    "./generated-assets/capybara-4k-small-block-quality-2.ktx2",
+    1920,
+    1200
+  );
+  const highRes4x4Stats3 = await loadCapy(
+    "canvas3-2-small-block",
+    "./generated-assets/capybara-4k-small-block-quality-3.ktx2",
+    1920,
+    1200
+  );
+
+  const lowRes4x4UploadAvg =
+    (lowRes4x4Stats1.uploadTime +
+      lowRes4x4Stats2.uploadTime +
+      lowRes4x4Stats3.uploadTime) /
+    3;
+  const highRes4x4UploadAvg =
+    (highRes4x4Stats1.uploadTime +
+      highRes4x4Stats2.uploadTime +
+      highRes4x4Stats3.uploadTime) /
+    3;
+
+  document.getElementById(
+    "stats-low-res-upload-small-block"
+  )!.innerHTML = `${lowRes4x4UploadAvg.toFixed(2)} ms`;
+  document.getElementById(
+    "stats-high-res-upload-small-block"
+  )!.innerHTML = `${highRes4x4UploadAvg.toFixed(2)} ms`;
+  document.getElementById(
+    "stats-low-res-size-small-block"
+  )!.innerHTML = `${lowRes4x4Stats1.compressedSize} bytes`;
+  document.getElementById(
+    "stats-high-res-size-small-block"
+  )!.innerHTML = `${highRes4x4Stats1.compressedSize} bytes`;
 }
 
 (async () => {

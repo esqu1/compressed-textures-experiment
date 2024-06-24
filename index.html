@@ -3,10 +3,16 @@
 <head>
   <title>Canvas Grid</title>
   <style>
+.canvas-grid-1 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(1, 1fr);
+      gap: 10px;
+    }
     .canvas-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: repeat(4, 1fr);
+      grid-template-rows: repeat(3, 1fr);
       gap: 10px;
     }
     .canvas {
@@ -18,9 +24,9 @@
 </head>
 <body>
   <h1>Comparison of ASTC encoding quality</h1>
-  All of these are encoded with 12x12 block size in sRGB.
+  All of these are encoded with 4x4 or 12x12 block size in sRGB. Smaller block sizes mean better quality but larger file sizes.
   <br><br>
-
+<hr>
   Statistics: <br>
   On-disk size of original 1140 x 580 PNG image: 1.56 MB <br>
   On-disk size of original 1920 x 1200 PNG image: 3.37 MB <br>
@@ -28,47 +34,17 @@
   GPU memory size of original 1920 x 1200 PNG image: 9.22 MB <br>
   GPU memory size of compressed 1140 x 580 ASTC_12x12 image: <span id="stats-low-res-size"></span> <br>
   GPU memory size of compressed 1920 x 1200 ASTC_12x12 image: <span id="stats-high-res-size"></span> <br>
-  Compressed texture upload time for 1140 x 580 image: <span id="stats-low-res-upload"></span><br>
-  Compressed texture upload time for 1920 x 1200 image: <span id="stats-high-res-upload"></span>
+  Compressed texture upload time for 1140 x 580 ASTC_12x12 image: <span id="stats-low-res-upload"></span><br>
+  Compressed texture upload time for 1920 x 1200 ASTC_12x12 image: <span id="stats-high-res-upload"></span><br>
+  GPU memory size of compressed 1140 x 580 ASTC_4x4 image: <span id="stats-low-res-size-small-block"></span> <br>
+  GPU memory size of compressed 1920 x 1200 ASTC_4x4 image: <span id="stats-high-res-size-small-block"></span> <br>
+  Compressed texture upload time for 1140 x 580 ASTC_4x4 image: <span id="stats-low-res-upload-small-block"></span><br>
+  Compressed texture upload time for 1920 x 1200 ASTC_4x4 image: <span id="stats-high-res-upload-small-block"></span><br>
 
   <hr>
-  <div class="canvas-grid">
-    <div>
-      <center>
-        <canvas width=800 height=400 class="canvas" id="canvas1-1"></canvas><br>
-        fastest (quality = 0)
-      </center>
-    </div>
-    <div>
-      <center>
-        <canvas width=800 height=400 class="canvas" id="canvas1-2"></canvas><br>
-        fastest (quality = 0)
-      </center>
-    </div>
-    <div>
-      <center>
-        <canvas width=800 height=400 class="canvas" id="canvas2-1"></canvas><br>
-        fast (quality = 10)
-      </center>
-    </div>
-    <div>
-      <center>
-        <canvas width=800 height=400 class="canvas" id="canvas2-2"></canvas><br>
-        fast (quality = 10)
-      </center>
-    </div>
-    <div>
-      <center>
-        <canvas width=800 height=400 class="canvas" id="canvas3-1"></canvas><br>
-        medium (quality = 60)
-      </center>
-    </div>
-    <div>
-      <center>
-        <canvas width=800 height=400 class="canvas" id="canvas3-2"></canvas><br>
-        medium (quality = 60)
-      </center>
-    </div>
+  <div class="canvas-grid-1">
+    <center><h2>1140 x 580 image</h2></center>
+    <center><h2>1920 x 1200 image</h2></center>
     <div>
       <center>
         <canvas width=800 height=400 class="canvas" id="canvas4-1"></canvas><br>
@@ -79,6 +55,85 @@
       <center>
         <canvas width=800 height=400 class="canvas" id="canvas4-2"></canvas><br>
         original
+      </center>
+    </div>
+    </div>
+    <hr>
+  <div class="canvas-grid">
+    <div>
+      <center>
+        <canvas width=800 height=400 class="canvas" id="canvas1-1"></canvas><br>
+        fastest (quality = 0) with 12x12 block size
+      </center>
+    </div>
+    <div>
+      <center>
+        <canvas width=800 height=400 class="canvas" id="canvas1-2"></canvas><br>
+        fastest (quality = 0) with 12x12 block size
+      </center>
+    </div>
+    <div>
+      <center>
+        <canvas width=800 height=400 class="canvas" id="canvas2-1"></canvas><br>
+        fast (quality = 10) with 12x12 block size
+      </center>
+    </div>
+    <div>
+      <center>
+        <canvas width=800 height=400 class="canvas" id="canvas2-2"></canvas><br>
+        fast (quality = 10) with 12x12 block size
+      </center>
+    </div>
+    <div>
+      <center>
+        <canvas width=800 height=400 class="canvas" id="canvas3-1"></canvas><br>
+        medium (quality = 60) with 12x12 block size
+      </center>
+    </div>
+    <div>
+      <center>
+        <canvas width=800 height=400 class="canvas" id="canvas3-2"></canvas><br>
+        medium (quality = 60) with 12x12 block size
+      </center>
+    </div>
+  </div>
+    <hr>
+
+  <div class="canvas-grid">
+    <div>
+      <center>
+        <canvas width=800 height=400 class="canvas" id="canvas1-1-small-block"></canvas><br>
+        fastest (quality = 0) with 4x4 block size
+      </center>
+    </div>
+    <div>
+      <center>
+        <canvas width=800 height=400 class="canvas" id="canvas1-2-small-block"></canvas><br>
+        fastest (quality = 0) with 4x4 block size
+      </center>
+    </div>
+    <div>
+      <center>
+        <canvas width=800 height=400 class="canvas" id="canvas2-1-small-block"></canvas><br>
+        fast (quality = 10) with 4x4 block size
+      </center>
+    </div>
+    <div>
+      <center>
+        <canvas width=800 height=400 class="canvas" id="canvas2-2-small-block"></canvas><br>
+        fast (quality = 10) with 4x4 block size
+      </center>
+    </div>
+    <div>
+      <center>
+        <canvas width=800 height=400 class="canvas" id="canvas3-1-small-block"></canvas><br>
+        medium (quality = 60) with 4x4 block size
+      </center>
+    </div>
+    <div>
+      <center>
+        <canvas width=800 height=400 class="canvas" id="canvas3-2-small-block"></canvas><br>
+        medium (quality = 60) with 4x4 block size
       </center>
     </div>
 
