@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Canvas Grid</title>
+  <style>
+    .canvas-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(4, 1fr);
+      gap: 10px;
+    }
+    .canvas {
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+  <div class="canvas-grid">
+    <canvas class="canvas" id="canvas1-1"></canvas>
+    <canvas class="canvas" id="canvas1-2"></canvas>
+    <canvas class="canvas" id="canvas2-1"></canvas>
+    <canvas class="canvas" id="canvas2-2"></canvas>
+    <canvas class="canvas" id="canvas3-1"></canvas>
+    <canvas class="canvas" id="canvas3-2"></canvas>
+    <canvas class="canvas" id="canvas4-1"></canvas>
+    <canvas class="canvas" id="canvas4-2"></canvas>
+  </div>
+  <script src="./index.js"></script>
+</body>
+</html>
