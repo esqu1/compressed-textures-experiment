@@ -20,12 +20,18 @@
       width: 400px;
       height: 200px;
     }
+    .canvas2 {
+      border: 1px solid black;
+      width: 400px;
+      height: 400px;
+    }
   </style>
 </head>
 <body>
   <h1>Comparison of ASTC encoding quality</h1>
   All of these are encoded with 4x4 or 12x12 block size in sRGB. Smaller block sizes mean better quality but larger file sizes.
   <br><br>
+  For another test of quality comparison with vector art, see <a href="./vector-test.html">here</a>.
 <hr>
   Statistics: <br>
   On-disk size of original 1140 x 580 PNG image: 1.56 MB <br>
@@ -59,6 +65,7 @@
     </div>
     </div>
     <hr>
+  </div>
   <div class="canvas-grid">
     <div>
       <center>
@@ -136,6 +143,10 @@
         medium (quality = 60) with 4x4 block size
       </center>
     </div>
+  </div>
+
+  <hr>
+
 
   <script src="./index.js"></script>
 </body>

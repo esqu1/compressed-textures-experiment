@@ -123,10 +123,14 @@ async function loadCapy(
   textureHeight: number
 ): Promise<CompressionStats> {
   // Create a canvas element
-  const canvas = document.getElementById(canvasId)! as HTMLCanvasElement;
+  const canvas = document.getElementById(canvasId);
+
+  if (!canvas) {
+    return { uploadTime: 0.0 };
+  }
 
   // Get the WebGL rendering context
-  const gl = canvas.getContext("webgl")!;
+  const gl = (canvas as HTMLCanvasElement).getContext("webgl")!;
   const astcExt = gl.getExtension(
     "WEBGL_compressed_texture_astc"
   ) as WEBGL_compressed_texture_astc;
@@ -244,6 +248,9 @@ async function main() {
       highRes12x12Stats3.uploadTime) /
     3;
 
+  if (!document.getElementById("stats-low-res-upload")) {
+    return;
+  }
   document.getElementById(
     "stats-low-res-upload"
   )!.innerHTML = `${lowRes12x12UploadAvg.toFixed(2)} ms`;
@@ -319,8 +326,49 @@ async function main() {
   )!.innerHTML = `${highRes4x4Stats1.compressedSize} bytes`;
 }
 
+export async function main2() {
+  await loadCapy(
+    "canvas-vector-art-1-small-block",
+    "./generated-assets/vector-art-small-block-quality-1.ktx2",
+    640,
+    640
+  );
+  await loadCapy(
+    "canvas-vector-art-2-small-block",
+    "./generated-assets/vector-art-small-block-quality-2.ktx2",
+    640,
+    640
+  );
+  await loadCapy(
+    "canvas-vector-art-3-small-block",
+    "./generated-assets/vector-art-small-block-quality-3.ktx2",
+    640,
+    640
+  );
+  await loadCapy(
+    "canvas-vector-art-1",
+    "./generated-assets/vector-art-quality-1.ktx2",
+    640,
+    640
+  );
+  await loadCapy(
+    "canvas-vector-art-2",
+    "./generated-assets/vector-art-quality-2.ktx2",
+    640,
+    640
+  );
+  await loadCapy(
+    "canvas-vector-art-3",
+    "./generated-assets/vector-art-quality-3.ktx2",
+    640,
+    640
+  );
+  await loadCapy("canvas-vector-art-original", "./vector-art.png", 640, 640);
+}
+
 (async () => {
   await main();
+  await main2();
 })();
 
 export {};

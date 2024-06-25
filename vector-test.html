@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Canvas Grid</title>
+    <style>
+      .canvas-grid-1 {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(1, 1fr);
+        gap: 10px;
+      }
+      .canvas-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(5, 1fr);
+        gap: 10px;
+      }
+      .canvas {
+        border: 1px solid black;
+        width: 400px;
+        height: 200px;
+      }
+      .canvas2 {
+        border: 1px solid black;
+        width: 400px;
+        height: 400px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Comparison of ASTC encoding quality</h1>
+    All of these are encoded with 4x4 or 12x12 block size in sRGB. Smaller block
+    sizes mean better quality but larger file sizes. For the main photograph
+    tests, see <a href="./index.html">here</a>. <br /><br />
+    <div class="canvas-grid">
+      <div>
+        <center>
+          <canvas
+            width="800"
+            height="800"
+            class="canvas2"
+            id="canvas-vector-art-original"
+          ></canvas
+          ><br />
+          original
+        </center>
+      </div>
+      <div>
+        <center>
+          <canvas
+            width="800"
+            height="800"
+            class="canvas2"
+            id="canvas-vector-art-3-small-block"
+          ></canvas
+          ><br />
+          medium (quality = 60) with 4x4 block size
+        </center>
+      </div>
+      <div>
+        <center>
+          <canvas
+            width="800"
+            height="800"
+            class="canvas2"
+            id="canvas-vector-art-1-small-block"
+          ></canvas
+          ><br />
+          fastest (quality = 0) with 4x4 block size
+        </center>
+      </div>
+      <div>
+        <center>
+          <canvas
+            width="800"
+            height="800"
+            class="canvas2"
+            id="canvas-vector-art-2-small-block"
+          ></canvas
+          ><br />
+          fast (quality = 10) with 4x4 block size
+        </center>
+      </div>
+      <div>
+        <center>
+          <canvas
+            width="800"
+            height="800"
+            class="canvas2"
+            id="canvas-vector-art-3"
+          ></canvas
+          ><br />
+          medium (quality = 60) with 12x12 block size
+        </center>
+      </div>
+      <div>
+        <center>
+          <canvas
+            width="800"
+            height="800"
+            class="canvas2"
+            id="canvas-vector-art-1"
+          ></canvas
+          ><br />
+          fastest (quality = 0) with 12x12 block size
+        </center>
+      </div>
+      <div>
+        <center>
+          <canvas
+            width="800"
+            height="800"
+            class="canvas2"
+            id="canvas-vector-art-2"
+          ></canvas
+          ><br />
+          fast (quality = 10) with 12x12 block size
+        </center>
+      </div>
+    </div>
+    </div>
+    <script src="./index.js"></script>
+  </body>
+</html>
