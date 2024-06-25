@@ -139,7 +139,7 @@
       gl.compressedTexImage2D(
         gl.TEXTURE_2D,
         0,
-        canvasId.endsWith("small-block") ? astcExt.COMPRESSED_RGBA_ASTC_4x4_KHR : astcExt.COMPRESSED_RGBA_ASTC_12x12_KHR,
+        canvasId.endsWith("small-block") ? astcExt.COMPRESSED_RGBA_ASTC_4x4_KHR : canvasId.endsWith("medium-block") ? astcExt.COMPRESSED_RGBA_ASTC_6x6_KHR : astcExt.COMPRESSED_RGBA_ASTC_12x12_KHR,
         textureWidth,
         textureHeight,
         0,
@@ -263,32 +263,14 @@
   }
   async function main2() {
     await loadCapy(
-      "canvas-vector-art-1-small-block",
-      "./generated-assets/vector-art-small-block-quality-1.ktx2",
-      640,
-      640
-    );
-    await loadCapy(
-      "canvas-vector-art-2-small-block",
-      "./generated-assets/vector-art-small-block-quality-2.ktx2",
-      640,
-      640
-    );
-    await loadCapy(
       "canvas-vector-art-3-small-block",
       "./generated-assets/vector-art-small-block-quality-3.ktx2",
       640,
       640
     );
     await loadCapy(
-      "canvas-vector-art-1",
-      "./generated-assets/vector-art-quality-1.ktx2",
-      640,
-      640
-    );
-    await loadCapy(
-      "canvas-vector-art-2",
-      "./generated-assets/vector-art-quality-2.ktx2",
+      "canvas-vector-art-3-medium-block",
+      "./generated-assets/vector-art-medium-block-quality-3.ktx2",
       640,
       640
     );

@@ -17,10 +17,13 @@ ktx create --format ASTC_4x4_SRGB_BLOCK capybara.png generated-assets/capybara-s
 ktx create --format ASTC_4x4_SRGB_BLOCK capybara.png generated-assets/capybara-small-block-quality-2.ktx2 --astc-quality fast
 ktx create --format ASTC_4x4_SRGB_BLOCK capybara.png generated-assets/capybara-small-block-quality-1.ktx2 --astc-quality fastest
 
-
 ktx create --format ASTC_4x4_SRGB_BLOCK vector-art.png generated-assets/vector-art-small-block-quality-3.ktx2 --astc-quality medium
 ktx create --format ASTC_4x4_SRGB_BLOCK vector-art.png generated-assets/vector-art-small-block-quality-2.ktx2 --astc-quality fast
 ktx create --format ASTC_4x4_SRGB_BLOCK vector-art.png generated-assets/vector-art-small-block-quality-1.ktx2 --astc-quality fastest
+
+ktx create --format ASTC_6x6_SRGB_BLOCK vector-art.png generated-assets/vector-art-medium-block-quality-3.ktx2 --astc-quality medium
+ktx create --format ASTC_6x6_SRGB_BLOCK vector-art.png generated-assets/vector-art-medium-block-quality-2.ktx2 --astc-quality fast
+ktx create --format ASTC_6x6_SRGB_BLOCK vector-art.png generated-assets/vector-art-medium-block-quality-1.ktx2 --astc-quality fastest
 
 ktx create --format ASTC_12x12_SRGB_BLOCK vector-art.png generated-assets/vector-art-quality-3.ktx2 --astc-quality medium
 ktx create --format ASTC_12x12_SRGB_BLOCK vector-art.png generated-assets/vector-art-quality-2.ktx2 --astc-quality fast
