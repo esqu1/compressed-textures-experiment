@@ -29,6 +29,10 @@ ktx create --format ASTC_12x12_SRGB_BLOCK vector-art.png generated-assets/vector
 ktx create --format ASTC_12x12_SRGB_BLOCK vector-art.png generated-assets/vector-art-quality-2.ktx2 --astc-quality fast
 ktx create --format ASTC_12x12_SRGB_BLOCK vector-art.png generated-assets/vector-art-quality-1.ktx2 --astc-quality fastest
 
+ktx create --format ASTC_4x4_SRGB_BLOCK futura.jpg generated-assets/text-quality-3-small-block.ktx2 --astc-quality medium
+ktx create --format ASTC_6x6_SRGB_BLOCK futura.jpg generated-assets/text-quality-3-medium-block.ktx2 --astc-quality medium
+ktx create --format ASTC_12x12_SRGB_BLOCK futura.jpg generated-assets/text-quality-3.ktx2 --astc-quality medium
+
 
 esbuild index.ts --bundle --outfile=index.js --watch=forever &
 python3 -m http.server 4004

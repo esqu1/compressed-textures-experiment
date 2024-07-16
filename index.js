@@ -116,7 +116,7 @@
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-    if (textureUrl.endsWith(".png")) {
+    if (textureUrl.endsWith(".png") || textureUrl.endsWith(".jpg")) {
       const image = new Image();
       image.src = textureUrl;
       image.onload = () => {
@@ -282,8 +282,30 @@
     );
     await loadCapy("canvas-vector-art-original", "./vector-art.png", 640, 640);
   }
+  async function main3() {
+    await loadCapy("canvas-text-original", "./futura.jpg", 1916, 958);
+    await loadCapy(
+      "canvas-text-small-block",
+      "./generated-assets/text-quality-3-small-block.ktx2",
+      1916,
+      958
+    );
+    await loadCapy(
+      "canvas-text-medium-block",
+      "./generated-assets/text-quality-3-medium-block.ktx2",
+      1916,
+      958
+    );
+    await loadCapy(
+      "canvas-text",
+      "./generated-assets/text-quality-3.ktx2",
+      1916,
+      958
+    );
+  }
   (async () => {
     await main();
     await main2();
+    await main3();
   })();
 })();
